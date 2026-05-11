@@ -33,7 +33,7 @@ export function EditModal({ destination }) {
     const formData = new FormData(e.currentTarget);
     const destination = Object.fromEntries(formData.entries());
 
-    const res = await fetch(`http://localhost:5000/destination/${_id}`, {
+    const res = await fetch(`http://localhost:5000/destinations/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -47,7 +47,7 @@ export function EditModal({ destination }) {
   return (
     <Modal>
 
-        <Button variant="outline" className={"rounded-none"}>
+        <Button variant="" className={"rounded-none"}>
           <BiEdit /> Edit
         </Button>
 
@@ -211,7 +211,7 @@ export function EditModal({ destination }) {
                   {/* Buttons */}
 
                   <Modal.Footer>
-                    <Button type="submit" slot="close">
+                    <Button type="submit" >
                       Save
                     </Button>
                   </Modal.Footer>
