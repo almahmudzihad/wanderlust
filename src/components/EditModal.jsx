@@ -47,7 +47,7 @@ export function EditModal({ destination }) {
   return (
     <Modal>
 
-        <Button variant="" className={"rounded-none"}>
+        <Button variant="primary" >
           <BiEdit /> Edit
         </Button>
 

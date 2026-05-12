@@ -27,9 +27,10 @@ const DestinationDetels = async ({ params }) => {
                 Travel Details
             </h1>
         </div>
-
-        <EditModal destination={destination} />
-        <DeleteAlert destination={destination} />
+        <div className="flex items-center gap-4">
+            <EditModal destination={destination} />
+            <DeleteAlert destination={destination} />
+        </div>
     </div>
 
     {/* Hero Section */}
@@ -42,7 +43,7 @@ const DestinationDetels = async ({ params }) => {
             alt={destination.destinationName}
             width={1400}
             height={800}
-            className="w-full h-[350px] md:h-[650px] object-cover group-hover:scale-105 duration-700"
+            className="w-full h-[350px] md:h-[600px] object-cover group-hover:scale-105 duration-700"
         />
 
         {/* Floating Glass Card */}
@@ -52,7 +53,7 @@ const DestinationDetels = async ({ params }) => {
                 {destination.category}
             </span>
 
-            <h1 className="text-4xl md:text-7xl font-black mt-4 leading-tight">
+            <h1 className="text-3xl md:text-5xl font-black mt-4 leading-tight">
                 {destination.destinationName}
             </h1>
 
