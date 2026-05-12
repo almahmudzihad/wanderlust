@@ -1,11 +1,15 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -17,11 +21,8 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          
-
           <h1 className="text-2xl font-black tracking-wide">
             Wander<span className="text-blue-600">Lust</span>
           </h1>
@@ -47,24 +48,41 @@ const Navbar = () => {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/profile"
-            className="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium transition hover:border-blue-600 hover:text-blue-600"
-          >
-            Profile
+            
+          ><Button variant="ghost">Profile</Button>
           </Link>
+          {user ? (
+            <>
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/logout"
+                  
+                ><Button variant="danger">Logout</Button>
+                </Link>
+                <Avatar>
+                  <Avatar.Image alt={user.name} src={user?.image} />
+                  <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
+                </Avatar>
+                
+              </div>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition hover:text-blue-600"
+              >
+                Login
+              </Link>
 
-          <Link
-            href="/login"
-            className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition hover:text-blue-600"
-          >
-            Login
-          </Link>
-
-          <Link
-            href="/signup"
-            className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-          >
-            Sign Up
-          </Link>
+              <Link
+                href="/signup"
+                className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Button */}
@@ -96,24 +114,41 @@ const Navbar = () => {
             <div className="mt-4 flex flex-col gap-3">
               <Link
                 href="/profile"
-                className="rounded-full border border-gray-300 px-4 py-2 text-center text-sm font-medium"
-              >
-                Profile
-              </Link>
+                
+              ><Button variant="ghost">Profile</Button></Link>
 
-              <Link
-                href="/login"
-                className="rounded-full border border-gray-300 px-4 py-2 text-center text-sm font-medium"
-              >
-                Login
-              </Link>
+              {user ? (
+                <>
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <Avatar.Image alt={user.name} src={user?.image} />
+                      <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
+                    </Avatar>
+                    <Link
+                      href="/logout"                      
+                      className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition hover:text-blue-600"
+                  >
+                    Login
+                  </Link>
 
-              <Link
-                href="/signup"
-                className="rounded-full bg-blue-600 px-4 py-2 text-center text-sm font-semibold text-white"
-              >
-                Sign Up
-              </Link>
+                  <Link
+                    href="/signup"
+                    className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </ul>
         </div>
