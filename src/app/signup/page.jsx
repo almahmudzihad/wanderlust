@@ -11,6 +11,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
 
 const SignupPage = () => {
   const onSubmit = async (e) => {
@@ -25,7 +26,12 @@ const SignupPage = () => {
         image: user.imageUrl, 
     }
     );
-    console.log(data, error);
+    if(data){
+        redirect('/login')
+    }
+    if(error){
+        alert(error.message)
+    }
   };
   return (
     <div className="max-w-7xl mx-auto">
