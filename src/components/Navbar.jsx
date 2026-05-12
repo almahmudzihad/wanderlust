@@ -11,6 +11,10 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
+  const handleLogout = async () => {
+    await authClient.signOut();
+  };
+
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Destinations", path: "/destinations" },
@@ -54,11 +58,8 @@ const Navbar = () => {
           {user ? (
             <>
               <div className="flex items-center gap-4">
-                <Link
-                  href="/logout"
-                  
-                ><Button variant="danger">Logout</Button>
-                </Link>
+               <Button variant="danger" onClick={handleLogout}>Logout</Button>
+                
                 <Avatar>
                   <Avatar.Image alt={user.name} src={user?.image} />
                   <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
@@ -77,9 +78,9 @@ const Navbar = () => {
 
               <Link
                 href="/signup"
-                className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                
               >
-                Sign Up
+                <Button variant="ghost">Sign Up</Button>
               </Link>
             </>
           )}
@@ -124,12 +125,7 @@ const Navbar = () => {
                       <Avatar.Image alt={user.name} src={user?.image} />
                       <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
                     </Avatar>
-                    <Link
-                      href="/logout"                      
-                      className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-                    >
-                      Logout
-                    </Link>
+                    <Button variant="danger" onClick={handleLogout}>Logout</Button>
                   </div>
                 </>
               ) : (
@@ -143,9 +139,9 @@ const Navbar = () => {
 
                   <Link
                     href="/signup"
-                    className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                   
                   >
-                    Sign Up
+                    <Button variant="ghost">Sign Up</Button>
                   </Link>
                 </>
               )}
