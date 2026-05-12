@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
   Button,
@@ -12,11 +13,19 @@ import {
 } from "@heroui/react";
 
 const SignupPage = () => {
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    const user = Object.fromEntries(formData.entries());
+    
+    const { data, error } = await authClient.signUp.email({
+        email: user.email, 
+        password: user.password, 
+        name: user.name, 
+        image: user.imageUrl, 
+    }
+    );
+    console.log(data, error);
   };
   return (
     <div className="max-w-7xl mx-auto">
