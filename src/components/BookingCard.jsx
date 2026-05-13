@@ -1,6 +1,31 @@
-import React from 'react'
-
+"use client";
+import { authClient } from '@/lib/auth-client';
 const BookingCard = ({ destination }) => {
+      const { data: session } = authClient.useSession();
+
+    const handelbooking = async () => {
+        const bookingData = { 
+            userId: session?.user.id,
+            userName: session?.user.name,
+            userImage: session?.user.image,
+            destinationId: destination._id,
+            destinationName: destination.destinationName,
+            price: destination.price,
+            deprecarDate: destination.departureDate,
+
+         };
+
+        const res = await fetch('http://localhost:5000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+        });
+        const result = await res.json();
+        console.log(result);
+    }
+
   return (
     <div className="sticky top-10 h-fit">
 
@@ -62,7 +87,7 @@ const BookingCard = ({ destination }) => {
                 {/* Buttons */}
                 <div className="space-y-4 mt-10">
 
-                    <button className="w-full bg-white text-black py-4 rounded-2xl font-bold hover:scale-105 duration-300">
+                    <button onClick={handelbooking} className="w-full bg-white text-black py-4 rounded-2xl font-bold hover:scale-105 duration-300">
                         Book Now
                     </button>
 
