@@ -1,5 +1,6 @@
 "use client";
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 const BookingCard = ({ destination }) => {
       const { data: session } = authClient.useSession();
 
@@ -12,6 +13,7 @@ const BookingCard = ({ destination }) => {
             destinationName: destination.destinationName,
             price: destination.price,
             deprecarDate: destination.departureDate,
+            destinationImage: destination.imageUrl,
 
          };
 
@@ -23,7 +25,9 @@ const BookingCard = ({ destination }) => {
             body: JSON.stringify(bookingData)
         });
         const result = await res.json();
-        console.log(result);
+        if(result.insertedId){
+            toast.success('Booking Successfully');
+        }
     }
 
   return (
