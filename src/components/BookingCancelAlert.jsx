@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {AlertDialog, Button} from "@heroui/react";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
@@ -7,10 +8,12 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 export function BookingCancelAlert({bookingId}) {
     const handleCancel = async () => {
+      const {data:tokenData} = await authClient.token();
         const res = await fetch(`http://localhost:5000/bookings/${bookingId}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
           },
         });
     
