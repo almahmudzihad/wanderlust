@@ -9,7 +9,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 export function BookingCancelAlert({bookingId}) {
     const handleCancel = async () => {
       const {data:tokenData} = await authClient.token();
-        const res = await fetch(`http://localhost:5000/bookings/${bookingId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings/${bookingId}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",

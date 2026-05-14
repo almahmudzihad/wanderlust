@@ -10,7 +10,7 @@ const AddDestinationPage = () => {
         const data = new FormData(e.currentTarget);
         const destination = Object.fromEntries(data.entries());
         
-        const res = await fetch('http://localhost:5000/destinations', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/destinations`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
