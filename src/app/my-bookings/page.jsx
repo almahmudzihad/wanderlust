@@ -1,6 +1,7 @@
 import { BookingCancelAlert } from '@/components/BookingCancelAlert';
 import BookingCard from '@/components/BookingCard';
 import { auth } from '@/lib/auth';
+import { authClient } from '@/lib/auth-client';
 import { Button } from '@heroui/react';
 import { headers } from 'next/headers';
 import Image from 'next/image';
@@ -10,7 +11,9 @@ const MyBookingPage = async () => {
     headers: await headers() // you need to pass the headers object.
   });
   const user = session?.user;
-  console.log(session.user.id);
+
+
+  
   const res = await fetch(`http://localhost:5000/bookings/${user.id}`)
   const bookings = await res.json() 
   if(!bookings.length) return <h1 className='text-4xl font-bold text-center my-10'>No Bookings Found</h1>
