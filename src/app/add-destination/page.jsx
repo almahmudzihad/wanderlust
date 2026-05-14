@@ -1,5 +1,7 @@
 "use client"
 import { FieldError, Input, Label, TextField, Select, ListBox, TextArea, Button } from "@heroui/react"
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 const AddDestinationPage = () => {
@@ -16,7 +18,10 @@ const AddDestinationPage = () => {
             body: JSON.stringify(destination)
         })
         const result = await res.json();
-        console.log(result);
+        if(result.insertedId){
+            toast.success('Destination Added Successfully');
+            redirect('/destinations');
+        }
     }
   return (
     <div>
