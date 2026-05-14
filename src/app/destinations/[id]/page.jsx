@@ -1,16 +1,22 @@
 import BookingCard from "@/components/BookingCard";
 import { DeleteAlert } from "@/components/DeleteAlert";
 import { EditModal } from "@/components/EditModal";
+import { headers } from "next/headers";
 
 import Image from "next/image";
+import { cache } from "react";
 
 const DestinationDetels = async ({ params }) => {
 
     const { id } = await params;
 
     const res = await fetch(`http://localhost:5000/destinations/${id}`, {
-        cache: 'no-store'
-    });
+        headers : { authorization: `logged in1`},
+    },
+    {
+        cache   : 'no-cache',
+    }
+);
 
     const destination = await res.json();
 
