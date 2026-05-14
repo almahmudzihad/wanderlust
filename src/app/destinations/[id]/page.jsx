@@ -1,17 +1,19 @@
 import BookingCard from "@/components/BookingCard";
 import { DeleteAlert } from "@/components/DeleteAlert";
 import { EditModal } from "@/components/EditModal";
+import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
 import Image from "next/image";
 import { cache } from "react";
 
 const DestinationDetels = async ({ params }) => {
-
     const { id } = await params;
+    const {token} = await auth.api.getToken({ headers: await headers() });
+    console.log(token);
 
     const res = await fetch(`http://localhost:5000/destinations/${id}`, {
-        headers : { authorization: `logged in1`},
+        headers : { authorization: `Bearer ${token}` },
     },
     {
         cache   : 'no-cache',
