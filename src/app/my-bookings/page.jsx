@@ -12,9 +12,11 @@ const MyBookingPage = async () => {
   });
   const user = session?.user;
 
-
+  const {token} = await auth.api.getToken({ headers: await headers() });
   
-  const res = await fetch(`http://localhost:5000/bookings/${user.id}`)
+  const res = await fetch(`http://localhost:5000/bookings/${user.id}`,{
+    headers : { authorization: `Bearer ${token}` },
+  })
   const bookings = await res.json() 
   if(!bookings.length) return <h1 className='text-4xl font-bold text-center my-10'>No Bookings Found</h1>
 
