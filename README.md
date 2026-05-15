@@ -1,12 +1,9 @@
-# 🌍 Wanderlust Travel App
+# 🌍 Wanderlust - Travel Destination Booking App
 
 > “Discover amazing places, book unforgettable journeys.”
 
-A modern full-stack travel booking platform built with Next.js, MongoDB, and Better Auth.
-# 🌍 Wanderlust - Travel Destination Booking App
-
-A modern full-stack travel booking platform built with **Next.js, MongoDB, Better Auth, and TailwindCSS**.  
-Users can explore destinations, book trips, and manage their bookings with secure authentication and smooth UI experience.
+A modern full-stack travel booking platform built with **Next.js, MongoDB, and Better Auth**.  
+Users can explore destinations, book trips, and manage their bookings with secure authentication and smooth UX.
 
 ---
 
@@ -21,23 +18,23 @@ Users can explore destinations, book trips, and manage their bookings with secur
 ## ✨ Features
 
 - 🔐 Google OAuth Authentication
-- 🔑 Token-based secure API authentication (JWT / Better Auth)
+- 🔑 Token-based secure API system (JWT / Better Auth)
 - 🌍 Browse travel destinations
 - 📄 Destination details page
-- 🧳 Book travel packages
+- 🧳 Booking system
 - ❌ Cancel bookings
 - ➕ Add new destinations
-- 👤 User profile page
-- 🌐 Proxy setup for frontend-backend communication (CORS handling)
-- 🔔 Toast notifications for user feedback
-- 📱 Fully responsive UI (mobile + desktop)
+- 👤 User profile management
+- 🌐 Proxy setup for frontend-backend communication
+- 🔔 Toast notifications for better UX
+- 📱 Fully responsive design
 - ⚡ Fast performance with Next.js App Router
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
+**Frontend:**
 - Next.js 16
 - React 19
 - TailwindCSS 4
@@ -45,35 +42,28 @@ Users can explore destinations, book trips, and manage their bookings with secur
 - React Icons
 - React Hot Toast
 
-### Backend
+**Backend:**
 - Node.js
 - Express.js
 - MongoDB
 - JWT Authentication
-- Better Auth (Session + Token management)
+- Better Auth
 
-### Authentication
-- Google OAuth login system
-- Secure token-based authorization
-- Protected API routes using Bearer token
-
-### Deployment
-- Frontend: Vercel
-- Backend: Vercel
-- Database: MongoDB Atlas
+**Deployment:**
+- Vercel (Frontend + Backend)
+- MongoDB Atlas
 
 ---
 
 ## 🔐 Authentication Flow
 
-1. User logs in via Google OAuth
-2. Server generates authentication token
+1. User logs in using Google OAuth
+2. Server generates secure token
 3. Token stored on client
-4. Every protected request includes token:
+4. Token sent with every protected request:
 
 ```js
 headers: {
   authorization: `Bearer <token>`
 }
-
-## 
+```
