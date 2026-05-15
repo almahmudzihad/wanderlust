@@ -1,13 +1,14 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import Image from "next/image";
+import { Avatar } from "@heroui/react";
+
 import Link from "next/link";
 
 const ProfilePage = () => {
   // Dummy user (replace with your auth session)
   const { data: session } = authClient.useSession();
     const user = session?.user;
-    console.log(user);
+    
 
 
   return (
@@ -32,12 +33,10 @@ const ProfilePage = () => {
 
           {/* Avatar */}
           <div className="relative w-32 h-32">
-            <Image
-              src={user?.image}
-              alt={user?.name}
-              fill
-              className="rounded-full object-cover border-4 border-emerald-200"
-            />
+            <Avatar>
+                <Avatar.Image alt={user.name} src={user?.image} />
+                <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
+            </Avatar>
           </div>
 
           {/* Info */}

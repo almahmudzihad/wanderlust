@@ -10,14 +10,11 @@ import Image from "next/image";
 const DestinationDetels = async ({ params }) => {
     const { id } = await params;
     const {token} = await auth.api.getToken({ headers: await headers() });
-    console.log(token);
+   
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/destinations/${id}`, {
         headers : { authorization: `Bearer ${token}` },
     },
-    {
-        cache   : 'no-cache',
-    }
 );
 
     const destination = await res.json();
@@ -52,6 +49,7 @@ const DestinationDetels = async ({ params }) => {
             alt={destination.destinationName}
             width={800}
             height={600}
+            unoptimized
             className="w-full h-[350px] md:h-[600px] object-cover group-hover:scale-105 duration-700"
         />
 
