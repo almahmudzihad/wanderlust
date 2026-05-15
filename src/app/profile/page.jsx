@@ -33,10 +33,7 @@ const ProfilePage = () => {
 
           {/* Avatar */}
           <div className="relative w-32 h-32">
-            <Avatar>
-                <Avatar.Image alt={user.name} src={user?.image} />
-                <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
-            </Avatar>
+            
           </div>
 
           {/* Info */}
