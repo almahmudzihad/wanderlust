@@ -1,164 +1,177 @@
-"use client"
-import { FieldError, Input, Label, TextField, Select, ListBox, TextArea, Button } from "@heroui/react"
-import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
+"use client";
 
+import {
+  FieldError,
+  Input,
+  Label,
+  TextField,
+  Select,
+  ListBox,
+  TextArea,
+  Button,
+} from "@heroui/react";
+
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const AddDestinationPage = () => {
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const destination = Object.fromEntries(data.entries());
-        
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/destinations`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(destination)
-        })
-        const result = await res.json();
-        if(result.insertedId){
-            toast.success('Destination Added Successfully');
-            redirect('/destinations');
-        }
+  const router = useRouter();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const destination = Object.fromEntries(data.entries());
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/destinations`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(destination),
+      }
+    );
+
+    const result = await res.json();
+
+    if (result.insertedId) {
+      toast.success("Destination Added Successfully");
+      router.push("/destinations");
     }
+  };
+
   return (
-    <div>
-        <h1 className="text-4xl font-bold text-center mt-10">Add Destination</h1>
-        <form onSubmit={onSubmit}
-            className="p-10 space-y-8 w-3xl mx-auto mt-10 border rounded-3xl bg-gray-100"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Destination Name */}
-              <div className="md:col-span-2">
-                <TextField name="destinationName" isRequired>
-                  <Label>Destination Name</Label>
-                  <Input placeholder="Bali Paradise" className="rounded-2xl" />
-                  <FieldError />
-                </TextField>
-              </div>
+    <section className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-emerald-50 px-4 py-14">
 
-              {/* Country */}
-              <TextField name="country" isRequired>
-                <Label>Country</Label>
-                <Input placeholder="Indonesia" className="rounded-2xl" />
-                <FieldError />
-              </TextField>
+      <div className="max-w-4xl mx-auto">
 
-              {/* Category - Updated Select Component */}
-              <div>
-                <Select
-                  name="category"
-                  isRequired
-                  className="w-full"
-                  placeholder="Select category"
-                >
-                  <Label>Category</Label>
-                  <Select.Trigger className="rounded-2xl">
-                    <Select.Value />
-                    <Select.Indicator />
-                  </Select.Trigger>
-                  <Select.Popover>
-                    <ListBox>
-                      <ListBox.Item id="Beach" textValue="Beach">
-                        Beach
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                      <ListBox.Item id="Mountain" textValue="Mountain">
-                        Mountain
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                      <ListBox.Item id="City" textValue="City">
-                        City
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                      <ListBox.Item id="Adventure" textValue="Adventure">
-                        Adventure
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                      <ListBox.Item id="Cultural" textValue="Cultural">
-                        Cultural
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                      <ListBox.Item id="Luxury" textValue="Luxury">
-                        Luxury
-                        <ListBox.ItemIndicator />
-                      </ListBox.Item>
-                    </ListBox>
-                  </Select.Popover>
-                </Select>
-              </div>
+        {/* Header */}
+        <div className="text-center mb-10">
 
-              {/* Price */}
-              <TextField name="price" type="number" isRequired>
-                <Label>Price (USD)</Label>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
+            Add Destination
+          </h1>
+
+          <p className="text-gray-500">
+            Create a new travel experience for users
+          </p>
+
+        </div>
+
+        {/* Form */}
+        <form
+          onSubmit={onSubmit}
+          className="bg-white border border-gray-100 shadow-lg rounded-3xl p-8 space-y-8"
+        >
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Destination Name */}
+            <div className="md:col-span-2">
+              <TextField name="destinationName" isRequired>
+                <Label>Destination Name</Label>
                 <Input
-                  type="number"
-                  placeholder="1299"
-                  className="rounded-2xl"
+                  placeholder="Bali Paradise"
+                  className="rounded-xl"
                 />
                 <FieldError />
               </TextField>
-
-              {/* Duration */}
-              <TextField name="duration" isRequired>
-                <Label>Duration</Label>
-                <Input
-                  placeholder="7 Days / 6 Nights"
-                  className="rounded-2xl"
-                />
-                <FieldError />
-              </TextField>
-
-              {/* Departure Date */}
-              <div className="md:col-span-2">
-                <TextField name="departureDate" type="date" isRequired>
-                  <Label>Departure Date</Label>
-                  <Input type="date" className="rounded-2xl" />
-                  <FieldError />
-                </TextField>
-              </div>
-
-              {/* Image URL - Removed preview */}
-              <div className="md:col-span-2">
-                <TextField name="imageUrl" isRequired>
-                  <Label>Image URL</Label>
-                  <Input
-                    type="url"
-                    placeholder="https://example.com/bali-paradise.jpg"
-                    className="rounded-2xl"
-                  />
-                  <FieldError />
-                </TextField>
-              </div>
-
-              {/* Description */}
-              <div className="md:col-span-2">
-                <TextField name="description" isRequired>
-                  <Label>Description</Label>
-                  <TextArea
-                    placeholder="Describe the travel experience..."
-                    className="rounded-3xl"
-                  />
-                  <FieldError />
-                </TextField>
-              </div>
             </div>
 
-            {/* Buttons */}
+            {/* Country */}
+            <TextField name="country" isRequired>
+              <Label>Country</Label>
+              <Input placeholder="Indonesia" className="rounded-xl" />
+              <FieldError />
+            </TextField>
 
-            <Button
-              type="submit"
-              variant="outline"
-              
-              className=" rounded-none w-full bg-cyan-500 text-white"
-            >
-             Add Travel Package
-            </Button>
-          </form>
-    </div>
-  )
-}
+            {/* Category */}
+            <Select name="category" isRequired className="w-full">
+              <Label>Category</Label>
+              <Select.Trigger className="rounded-xl">
+                <Select.Value placeholder="Select category" />
+                <Select.Indicator />
+              </Select.Trigger>
 
-export default AddDestinationPage
+              <Select.Popover>
+                <ListBox>
+                  <ListBox.Item id="Beach" textValue="Beach">Beach</ListBox.Item>
+                  <ListBox.Item id="Mountain" textValue="Mountain">Mountain</ListBox.Item>
+                  <ListBox.Item id="City" textValue="City">City</ListBox.Item>
+                  <ListBox.Item id="Adventure" textValue="Adventure">Adventure</ListBox.Item>
+                  <ListBox.Item id="Cultural" textValue="Cultural">Cultural</ListBox.Item>
+                  <ListBox.Item id="Luxury" textValue="Luxury">Luxury</ListBox.Item>
+                </ListBox>
+              </Select.Popover>
+            </Select>
+
+            {/* Price */}
+            <TextField name="price" type="number" isRequired>
+              <Label>Price (USD)</Label>
+              <Input type="number" placeholder="1299" className="rounded-xl" />
+              <FieldError />
+            </TextField>
+
+            {/* Duration */}
+            <TextField name="duration" isRequired>
+              <Label>Duration</Label>
+              <Input
+                placeholder="7 Days / 6 Nights"
+                className="rounded-xl"
+              />
+              <FieldError />
+            </TextField>
+
+            {/* Date */}
+            <div className="md:col-span-2">
+              <TextField name="departureDate" type="date" isRequired>
+                <Label>Departure Date</Label>
+                <Input type="date" className="rounded-xl" />
+                <FieldError />
+              </TextField>
+            </div>
+
+            {/* Image */}
+            <div className="md:col-span-2">
+              <TextField name="imageUrl" isRequired>
+                <Label>Image URL</Label>
+                <Input
+                  type="url"
+                  placeholder="https://example.com/image.jpg"
+                  className="rounded-xl"
+                />
+                <FieldError />
+              </TextField>
+            </div>
+
+            {/* Description */}
+            <div className="md:col-span-2">
+              <TextField name="description" isRequired>
+                <Label>Description</Label>
+                <TextArea
+                  placeholder="Describe the travel experience..."
+                  className="rounded-xl"
+                />
+                <FieldError />
+              </TextField>
+            </div>
+
+          </div>
+
+          {/* Button */}
+          <Button
+            type="submit"
+            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-xl transition"
+          >
+            Add Travel Package
+          </Button>
+
+        </form>
+      </div>
+    </section>
+  );
+};
+
+export default AddDestinationPage;

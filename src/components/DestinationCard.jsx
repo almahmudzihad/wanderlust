@@ -17,12 +17,12 @@ const DestinationCard = ({ destination }) => {
   } = destination;
 
   return (
-    <div className="group overflow-hidden rounded-3xl border border-white/20 bg-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl m-2">
+    <div className="group overflow-hidden rounded-xl border border-white/20 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-xl m-2">
       
       {/* Image */}
       <div className="relative overflow-hidden">
         <Image
-          className="h-[260px] w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="h-[260px] w-full object-cover transition-transform duration-700 group-hover:scale-102"
           alt={destinationName}
           src={image}
           height={400}
